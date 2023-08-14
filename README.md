@@ -43,7 +43,13 @@ services:
 
 ### Install the Plugin
 
-1. Copy this whole directory to your FreshRSS `extensions` directory.
+1. Copy this whole directory to your FreshRSS `extensions` directory. The easiest option is probably to clone this repo:
+
+```bash
+cd /path/to/freshrss/extensions
+git clone https://github.com/ravenscroftj/freshrss-flaresolverr-extension.git
+```
+
 2. Paste in the URL of your FlareSolverr instance in the settings window
 
 ![screenshot of the settings window for the plugin](assets/flaresolverr.png)
