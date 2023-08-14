@@ -19,5 +19,5 @@ services:
     volumes:
       - ./data:/config
     ports:
-      - 10182:80
+      - 8080:80
     restart: unless-stopped
