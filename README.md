@@ -1,5 +1,7 @@
 # FreshRSS Flaresolverr Extension
 
+[![Mastodon Follow](https://img.shields.io/mastodon/follow/000117012?domain=https%3A%2F%2Ffosstodon.org%2F&style=social)](https://fosstodon.org/@jamesravey) ![BSD Licensed](https://img.shields.io/github/license/ravenscroftj/freshrss-flaresolverr-extension) 
+
 FreshRSS plugin that provides cloudflare puzzle solving via flaresolverr
 
 ## Why
@@ -9,6 +11,8 @@ Some popular publishing sites, including [substack](https://substack.com/) use [
 If cloudflare suspects that your machine is a bot, they throw up a [challenge](https://developers.cloudflare.com/fundamentals/get-started/concepts/cloudflare-challenges/) - this is normally just a page that requires your browser to run some javascript which filters out simple scrapers that don't evaluate scripts. This means that Freshrss sometimes fails to retrieve feeds protected by cloudflare and it isn't "smart" enough to pass these cloudflare filters on its own.
 
 This FreshRSS extension uses [Flaresolverr](https://github.com/FlareSolverr/FlareSolverr/) to start a headless browser (essentially a full copy of chrome or firefox but without a UI to look at) to parse and resolve these challenges and send the contents of an RSS feed through to FreshRSS as normal.
+
+I stumbled across [ryancom16's solution](https://github.com/FreshRSS/FreshRSS/issues/4323) and decided to have a go at hardening it into a proper FreshRSS Plugin
 
 ## Install
 
@@ -61,3 +65,11 @@ git clone https://github.com/ravenscroftj/freshrss-flaresolverr-extension.git
 Prepend any feeds protected by Cloudflare with the URL. For example if your freshrss instance is at https://freshrss.example.com/ and you want to subscribe Sebastian Ruder's excellent NLP newsletter [https://nlpnewsletter.substack.com/](https://nlpnewsletter.substack.com/), you would take the full URL to the RSS feed `https://nlpnewsletter.substack.com/feed` and set the feed url in FreshRSS to:
 
 `https://freshrss.example.com/api/cloudsolver.php?feed=[https:/](https://nlpnewsletter.substack.com/feed)https://nlpnewsletter.substack.com/feed
+
+## Limitations
+
+This plugin only works on exact URLs for RSS feeds at the moment. It can't be used to do feed discovery. This is due to a limitation with [the way that selenium works](https://github.com/FlareSolverr/FlareSolverr/blob/master/src/flaresolverr_service.py#L398).
+
+## Contributing
+
+If you have suggestions or encounter problems, feel free to open an issue. If you'd like to make code changes, submit a pull request!
