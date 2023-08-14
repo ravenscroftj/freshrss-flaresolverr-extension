@@ -13,7 +13,33 @@ This FreshRSS extension uses [Flaresolverr](https://github.com/FlareSolverr/Flar
 ## Install
 
 ### Set up FlareSolverr
-You will need an instance of FlareSolverr running somewhere that is accessible to your FreshRSS instance. If you are using Docker Compose to manage FreshRSS then you can add FlareSolverr to your compose file. an example docker-compose file can be found [here](./docker-compose.example.yml).
+You will need an instance of FlareSolverr running somewhere that is accessible to your FreshRSS instance. If you are using Docker Compose to manage FreshRSS then you can add FlareSolverr to your compose file. An example setup is shown below:
+
+```yaml
+version: "2.1"
+services:
+  flaresolverr:     
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: always
+    environment:
+      - LOG_LEVEL=info
+    ports:
+      - 8191:8191
+
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: freshrss
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./data:/config
+    ports:
+      - 8080:80
+    restart: unless-stopped
+
+```
 
 ### Install the Plugin
 
