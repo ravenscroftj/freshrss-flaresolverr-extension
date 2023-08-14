@@ -19,6 +19,9 @@ You will need an instance of FlareSolverr running somewhere that is accessible t
 
 1. Copy this whole directory to your FreshRSS `extensions` directory.
 2. Paste in the URL of your FlareSolverr instance in the settings window
+
+![screenshot of the settings window for the plugin](assets/flaresolverr.png)
+
 3. Copy the feed URL in bold
 
 ### Configure your Feeds
