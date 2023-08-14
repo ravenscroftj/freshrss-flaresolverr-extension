@@ -1,0 +1,23 @@
+---
+version: "2.1"
+services:
+  flaresolverr:     
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: always
+    environment:
+      - LOG_LEVEL=info
+    ports:
+      - 8191:8191
+
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: freshrss
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./data:/config
+    ports:
+      - 10182:80
+    restart: unless-stopped
