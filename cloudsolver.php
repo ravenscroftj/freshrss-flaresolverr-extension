@@ -9,8 +9,9 @@ Minz_ExtensionManager::init();
                                                               
 //Returns request for website protected by Cloudflare                     
 //Requires  ghcr.io/flaresolverr/flaresolverr docker container
-$feed = $_GET['feed'];                                        
-//$session = $_GET['session'];                                
+$feed = $_GET['feed'];
+$loadViaHTML = $_GET['viahtml'] == '1';
+
 $ch = curl_init();                                            
 $headers  = [                       
     'Content-Type: application/json'
@@ -34,10 +35,20 @@ $array = json_decode(curl_exec($ch), true);
 header("Content-type: application/xml");   
                                            
 //echo curl_exec($ch);                  
-                                              
-$doc = new DOMDocument();                     
-                                              
-$doc->loadXML($array['solution']['response']);
+
+// Some feeds returned from FlareSolverr have the RSS embedded as HTML entities.
+// Loading via HTML and extracting the body seems to fix this.
+$doc = new DOMDocument();
+
+if ($loadViaHTML) {
+    $doc->loadHTML($array['solution']['response']);
+    $upstreamBody = $doc->getElementsByTagName('body')[0];
+    $doc = new DOMDocument();
+    $doc->loadXml($upstreamBody->textContent);
+} else {
+    $doc->loadXML($array['solution']['response']);
+}
+
                                               
 $feed = $doc->getElementsbyTagName('rss')[0]; 
                                               
