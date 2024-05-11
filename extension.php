@@ -5,9 +5,7 @@ class FlareSolverrExtension extends Minz_Extension
     public function init()
     {
         $this->registerTranslates();
-        $this->registerHook('check_url_before_add', array($this, 'handle_url'));
-        $this->registerHook('post_update',
-		                    array($this, 'postUpdateHook'));
+        $this->registerHook('post_update', array($this, 'postUpdateHook'));
     }
 
     public function install()
@@ -61,7 +59,7 @@ class FlareSolverrExtension extends Minz_Extension
 
     public function getPluginEndpoint()
     {
-    	return Minz_Url::display('/api/cloudsolver.php', 'html', true);
+    	return Minz_Url::display('/api/cloudsolver.php', 'html', true) . '?feed=';
     }
 
     public function handleConfigureAction()
@@ -71,8 +69,6 @@ class FlareSolverrExtension extends Minz_Extension
             FreshRSS_Context::$system_conf->save();
         }
     }
-
-
 
     public function getFlaresolverUrl()
     {

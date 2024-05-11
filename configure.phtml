@@ -1,19 +1,18 @@
 <form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
 	<input type="hidden" name="_csrf" value="<?=  FreshRSS_Auth::csrfToken() ?>" />
 	<div class="form-group">
-
 		<h4><?= _t('ext.flaresolverr.explanation') ?></h4>
-
-		<p><?= _t('ext.flaresolverr.instruction') ?></p>
-
+		<label class="checkbox" for="flaresolver_url"><?= _t('ext.flaresolverr.instruction') ?></label>
 		<div class="group-controls">
-			<label class="checkbox" for="flaresolver_url">
-				<input type="text" id="flaresolver_url" name="flaresolver_url" value="<?= $this->getFlaresolverUrl() ?>">
-			</label>
+			<input type="text" id="flaresolver_url" name="flaresolver_url" value="<?= $this->getFlaresolverUrl() ?>">
 		</div>
+	</div>
 
-                <p>Prepend your feed URL with: <b><?= $this->getPluginEndpoint() ?>?feed=</b></p>
-
+	<div class="form-group">
+		<label class="checkbox" for="flaresolver_url"><?= _t('ext.flaresolverr.prepend') ?></label>
+		<div class="group-controls">
+			<input type="text" readonly id="flaresolver_PluginEndpoint" name="flaresolver_PluginEndpoint" value="<?= $this->getPluginEndpoint() ?>">
+		</div>
 	</div>
 
 	<div class="form-group form-actions">
@@ -25,6 +24,5 @@
 </form>
 
 <p>
-	<?= _t('ext.greader_redate.updates') ?>
-	<a href="https://github.com/javerous/freshrss-greader-redate" target="_blank">GitHub</a>.
+	<?= _t('ext.flaresolverr.updates', '<a href="https://github.com/ravenscroftj/freshrss-flaresolverr-extension" alt="GitHub" target="_blank">GitHub</a>') ?>
 </p>
