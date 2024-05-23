@@ -64,7 +64,17 @@ git clone https://github.com/ravenscroftj/freshrss-flaresolverr-extension.git
 
 Prepend any feeds protected by Cloudflare with the URL. For example if your freshrss instance is at https://freshrss.example.com/ and you want to subscribe Sebastian Ruder's excellent NLP newsletter [https://nlpnewsletter.substack.com/](https://nlpnewsletter.substack.com/), you would take the full URL to the RSS feed `https://nlpnewsletter.substack.com/feed` and set the feed url in FreshRSS to:
 
-`https://freshrss.example.com/api/cloudsolver.php?feed=[https:/](https://nlpnewsletter.substack.com/feed)https://nlpnewsletter.substack.com/feed
+`https://freshrss.example.com/api/cloudsolver.php?feed=https://nlpnewsletter.substack.com/feed`
+
+#### viahtml parameter
+
+If the feed you want to subscribe to is actually XML included within an HTML document, which is often the case with Wordpress feeds, you can ask the extension to parse it accordingly using the _viahtml_ parameter set to `1`, like this:
+
+`https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/&viahtml=1`
+
+It may help solve errors like this one:
+
+```A feed could not be found at `https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/`; the status code is `200` and content-type is `application/xml` [https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/] ```
 
 ## Limitations
 
