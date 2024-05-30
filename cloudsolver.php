@@ -38,12 +38,13 @@ header("Content-type: application/xml");
 
 // Some feeds returned from FlareSolverr have the RSS embedded as HTML entities.
 // Loading via HTML and extracting the body seems to fix this.
-$doc = new DOMDocument();
+$doc = new DOMDocument('1.0', 'UTF-8');
 
 if ($loadViaHTML) {
-    $doc->loadHTML($array['solution']['response']);
+    $doc->loadHTML(mb_convert_encoding($array['solution']['response'], 'HTML-ENTITIES', 'UTF-8'));
     $upstreamBody = $doc->getElementsByTagName('body')[0];
-    $doc = new DOMDocument();
+    $doc = new DOMDocument('1.0', 'UTF-8');
+    $doc->encoding = 'utf-8';
     $doc->loadXml($upstreamBody->textContent);
 } else {
     $doc->loadXML($array['solution']['response']);
