@@ -66,15 +66,13 @@ Prepend any feeds protected by Cloudflare with the URL. For example if your fres
 
 `https://freshrss.example.com/api/cloudsolver.php?feed=https://nlpnewsletter.substack.com/feed`
 
-#### viahtml parameter
+### viahtml parameter
 
-If the feed you want to subscribe to is actually XML included within an HTML document, which is often the case with Wordpress feeds, you can ask the extension to parse it accordingly using the _viahtml_ parameter set to `1`, like this:
+The viahtml parameter should no longer be required - the script will work out how best to handle th edocument content
 
-`https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/&viahtml=1`
+### Timeout
 
-It may help solve errors like this one:
-
-```A feed could not be found at `https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/`; the status code is `200` and content-type is `application/xml` [https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/] ```
+You can set the `maxTimeout` parameter in the control panel or by passing `maxTimeout=<miliseconds>` as a query parameter on the feed URL. The system will use whichever is the lower of these two values. The default value is 60 seconds. This allows you to have flaresolver run for longer than 60 seconds if needed.
 
 ## Upgrades to FreshRSS
 
