@@ -76,6 +76,14 @@ It may help solve errors like this one:
 
 ```A feed could not be found at `https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/`; the status code is `200` and content-type is `application/xml` [https://freshrss.example.com/api/cloudsolver.php?feed=https://domain.ext/feed/] ```
 
+## Upgrades to FreshRSS
+
+If you are running FreshRSS as a docker image you will likely need to disable and reenable the plugin after you upgrade the main application. You can do this by toggling the extension using the switch in the control panel:
+
+![image](https://github.com/user-attachments/assets/604ea7b3-c89e-4ba6-b2fe-27e57acae27c)
+
+This is because the extension works by creating a file in the `/p/api/` directory of the application which is not persisted by the default linuxserver docker container. Hopefully I can find a way to fix this in future.
+
 ## Limitations
 
 This plugin only works on exact URLs for RSS feeds at the moment. It can't be used to do feed discovery. This is due to a limitation with [the way that selenium works](https://github.com/FlareSolverr/FlareSolverr/blob/master/src/flaresolverr_service.py#L398).
