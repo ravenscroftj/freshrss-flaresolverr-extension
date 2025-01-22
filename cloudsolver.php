@@ -20,7 +20,7 @@ $headers = [
 $postData = [
     'cmd' => 'request.get',
     'url' => $feed,
-    "maxTimeout"=> 60000,
+    "maxTimeout" => isset($_GET['maxTimeout']) ? intval($_GET['maxTimeout']) : intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout),
     //'session' => $session
 ];
 curl_setopt($ch, CURLOPT_URL, FreshRSS_Context::$system_conf->flaresolver_url."/v1"); //This is my flaresolverr address

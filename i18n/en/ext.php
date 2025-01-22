@@ -6,6 +6,7 @@ return array(
 		'instruction' => 'Please enter the URL of your FlareSolverr instance',
 		'prepend' => 'Prepend your feed URL with:',
 		'updates' => 'You can find the latest extension version at %s.',
+		'maxTimeout' => 'Maximum time to wait for a request in miliseconds (default: 60000)',
 	),
 );
 

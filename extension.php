@@ -66,6 +66,7 @@ class FlareSolverrExtension extends Minz_Extension
     {
         if (Minz_Request::isPost()) {
             FreshRSS_Context::$system_conf->flaresolver_url = Minz_Request::param('flaresolver_url', "");
+            FreshRSS_Context::$system_conf->flaresolver_maxTimeout = Minz_Request::param("flaresolver_maxTimeout", "");
             FreshRSS_Context::$system_conf->save();
         }
     }
@@ -76,5 +77,12 @@ class FlareSolverrExtension extends Minz_Extension
             return FreshRSS_Context::$system_conf->flaresolver_url;
 
         return true;
+    }
+
+    public function getMaxTimeout(){
+        if (FreshRSS_Context::$system_conf->flaresolver_maxTimeout !== null)
+            return intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout);
+
+        return 60000;
     }
 }
