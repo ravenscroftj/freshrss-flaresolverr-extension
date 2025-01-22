@@ -17,13 +17,20 @@ $ch = curl_init();
 $headers = [
     'Content-Type: application/json'
 ];
+
+// set global timeout based on config or default to 60 seconds
+$globalTimeout = isset(FreshRSS_Context::$system_conf->flaresolver_maxTimeout) ? intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout) : 60000;
+
+// if maxTimeout param is set then use it instead of global one as long as it is less than global one.
+$maxTimeout = isset($_GET['maxTimeout']) ? min(array(intval($_GET['maxTimeout']), $globalTimeout)) : $globalTimeout;
+
 $postData = [
     'cmd' => 'request.get',
     'url' => $feed,
-    "maxTimeout" => isset($_GET['maxTimeout']) ? intval($_GET['maxTimeout']) : intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout),
+    "maxTimeout" => $maxTimeout,
     //'session' => $session
 ];
-curl_setopt($ch, CURLOPT_URL, FreshRSS_Context::$system_conf->flaresolver_url."/v1"); //This is my flaresolverr address
+curl_setopt( $ch, CURLOPT_URL, FreshRSS_Context::$system_conf->flaresolver_url."/v1"); //This is my flaresolverr address
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
