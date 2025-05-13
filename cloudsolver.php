@@ -42,7 +42,7 @@ $array = json_decode(curl_exec($ch), true);
 
 header("Content-type: application/xml");
 
-if($_GET['debug'] == '1'){
+if(isset($_GET['debug']) && $_GET['debug'] == '1'){
     echo $array['solution']['response'];
     exit;
 }
