@@ -40,9 +40,15 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $array = json_decode(curl_exec($ch), true);
 
+if (json_last_error() !== JSON_ERROR_NONE || !isset($array['solution']) || !isset($array['solution']['response'])) {
+    header("HTTP/1.1 500 Internal Server Error");
+    echo "Error: Invalid JSON response or missing solution data";
+    exit;
+}
+
 header("Content-type: application/xml");
 
-if($_GET['debug'] == '1'){
+if(isset($_GET['debug']) && $_GET['debug'] == '1'){
     echo $array['solution']['response'];
     exit;
 }
