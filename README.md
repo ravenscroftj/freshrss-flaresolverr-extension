@@ -47,7 +47,7 @@ services:
 
 ```
 
-> ![TIP]
+> [!TIP]
 > 2025/08/09: The new version of the plugin is not fully supported by `latest` yet (1.26.3). You can try running `edge` to benefit from the new behaviour no longer requires manual copying of files and changing folder permissions. However, edge is not stable so your mileage may vary.
 
 ### Install the Plugin
