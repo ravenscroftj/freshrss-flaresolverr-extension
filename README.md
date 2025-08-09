@@ -31,19 +31,24 @@ services:
       - 8191:8191
 
   freshrss:
-    image: lscr.io/linuxserver/freshrss:latest
+    image: freshrss/freshrss:latest
     container_name: freshrss
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - CRON_MIN=1,31
     volumes:
-      - ./data:/config
+      - ./data:/var/www/FreshRSS/data
+      - ./extensions:/var/www/FreshRSS/extensions 
     ports:
-      - 8080:80
+      - 8081:80
     restart: unless-stopped
 
 ```
+
+> ![TIP]
+> 2025/08/09: The new version of the plugin is not fully supported by `latest` yet (1.26.3). You can try running `edge` to benefit from the new behaviour no longer requires manual copying of files and changing folder permissions. However, edge is not stable so your mileage may vary.
 
 ### Install the Plugin
 
