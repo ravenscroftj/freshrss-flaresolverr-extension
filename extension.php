@@ -14,28 +14,33 @@ class FlareSolverrExtension extends Minz_Extension
 
     public function install()
     {
-        $filename = 'cloudsolver.php';
-        $file_source = join_path($this->getPath(), $filename);
-        $path_destination = join_path(PUBLIC_PATH, 'api');
-        $file_destination = join_path($path_destination, $filename);
 
-        if (!is_writable($path_destination)) {
-            return 'server cannot write in ' . $path_destination;
-        }
+		// for old versions of freshrss we need to inject the cloudsolver.php file
 
-        if (file_exists($file_destination)) {
-            if (!unlink($file_destination)) {
-                return 'API file seems already existing but cannot be removed';
-            }
-        }
+		if(version_compare(FRESHRSS_VERSION, "1.26.4","<")){
+			$filename = 'cloudsolver.php';
+			$file_source = join_path($this->getPath(), $filename);
+			$path_destination = join_path(PUBLIC_PATH, 'api');
+			$file_destination = join_path($path_destination, $filename);
 
-        if (!file_exists($file_source)) {
-            return 'API file seems not existing in this extension. Try to download it again.';
-        }
+			if (!is_writable($path_destination)) {
+				return 'server cannot write in ' . $path_destination;
+			}
 
-        if (!copy($file_source, $file_destination)) {
-            return 'the API file has failed during installation.';
-        }
+			if (file_exists($file_destination)) {
+				if (!unlink($file_destination)) {
+					return 'API file seems already existing but cannot be removed';
+				}
+			}
+
+			if (!file_exists($file_source)) {
+				return 'API file seems not existing in this extension. Try to download it again.';
+			}
+
+			if (!copy($file_source, $file_destination)) {
+				return 'the API file has failed during installation.';
+			}
+		}
 
         return true;
     }
@@ -67,7 +72,14 @@ class FlareSolverrExtension extends Minz_Extension
 
     public function getPluginEndpoint()
     {
-    	return Minz_Url::display('/api/cloudsolver.php', 'html', true) . '?feed=';
+
+		if(version_compare(FRESHRSS_VERSION, "1.26.3",">=")){
+			return Minz_Url::display('/api/misc.php/'.$this->getName().'?feed=', 'html', true);
+		}else{
+			return Minz_Url::display('/api/cloudsolver.php?feed=', 'html', true);
+
+		}
+
     }
 
     public function handleConfigureAction()

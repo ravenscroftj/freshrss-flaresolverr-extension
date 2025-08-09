@@ -1,12 +1,12 @@
 # FreshRSS Flaresolverr Extension
 
-[![Mastodon Follow](https://img.shields.io/mastodon/follow/000117012?domain=https%3A%2F%2Ffosstodon.org%2F&style=social)](https://fosstodon.org/@jamesravey) ![BSD Licensed](https://img.shields.io/github/license/ravenscroftj/freshrss-flaresolverr-extension) 
+[![Mastodon Follow](https://img.shields.io/mastodon/follow/114403382982592834?domain=social.lol&style=social)](https://social.lol/@jamesravey) ![BSD Licensed](https://img.shields.io/github/license/ravenscroftj/freshrss-flaresolverr-extension)
 
 FreshRSS plugin that provides cloudflare puzzle solving via flaresolverr
 
 ## Why
 
-Some popular publishing sites, including [substack](https://substack.com/) use [Cloudflare](https://www.cloudflare.com/) to provide content caching and DDoS protection. 
+Some popular publishing sites, including [substack](https://substack.com/) use [Cloudflare](https://www.cloudflare.com/) to provide content caching and DDoS protection.
 
 If cloudflare suspects that your machine is a bot, they throw up a [challenge](https://developers.cloudflare.com/fundamentals/get-started/concepts/cloudflare-challenges/) - this is normally just a page that requires your browser to run some javascript which filters out simple scrapers that don't evaluate scripts. This means that Freshrss sometimes fails to retrieve feeds protected by cloudflare and it isn't "smart" enough to pass these cloudflare filters on its own.
 
@@ -22,7 +22,7 @@ You will need an instance of FlareSolverr running somewhere that is accessible t
 ```yaml
 version: "2.1"
 services:
-  flaresolverr:     
+  flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     restart: always
     environment:
