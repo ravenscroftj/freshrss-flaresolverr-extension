@@ -68,7 +68,17 @@ class InvalidResponseException extends Exception {
 	}
 }
 
+class FlaresolverrExtensionNotConfiguredException extends Exception {
+	public function __construct($message, ?int $code = null, ?Throwable $previous = null) {
+		parent::__construct($message, $code, $previous);
+	}
+}
+
 function fetch_feed($feed) {
+
+	if(empty(FreshRSS_Context::$system_conf->flaresolver_url)){
+		throw new FlaresolverrExtensionNotConfiguredException('FlareSolverr extension not configured. You must set your flaresolver url. See https://github.com/ravenscroftj/freshrss-flaresolverr-extension');
+	}
 
 	$ch = curl_init();
 	$headers = [
