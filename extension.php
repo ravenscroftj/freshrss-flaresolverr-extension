@@ -1,11 +1,15 @@
 <?php
 
+require_once(__DIR__.'/lib.php');
+
+
 class FlareSolverrExtension extends Minz_Extension
 {
     public function init()
     {
         $this->registerTranslates();
         $this->registerHook('post_update', array($this, 'postUpdateHook'));
+		$this->registerHook('api_misc', array($this, 'callApi'));
     }
 
     public function install()
@@ -48,6 +52,10 @@ class FlareSolverrExtension extends Minz_Extension
         return true;
     }
 
+	public function callApi( ) {
+		run_flaresolverr_extension();
+	}
+
     public function postUpdateHook()
     {
         $res = $this->install();
@@ -64,25 +72,34 @@ class FlareSolverrExtension extends Minz_Extension
 
     public function handleConfigureAction()
     {
+
+		$conf = FreshRSS_Context::systemConf();
+
+
         if (Minz_Request::isPost()) {
-            FreshRSS_Context::$system_conf->flaresolver_url = Minz_Request::param('flaresolver_url', "");
-            FreshRSS_Context::$system_conf->flaresolver_maxTimeout = Minz_Request::param("flaresolver_maxTimeout", "");
-            FreshRSS_Context::$system_conf->save();
+			$conf = FreshRSS_Context::systemConf();
+            $conf->flaresolver_url = Minz_Request::paramString('flaresolver_url', "");
+            $conf->flaresolver_maxTimeout = Minz_Request::paramInt("flaresolver_maxTimeout", "");
+            $conf->save();
         }
     }
 
     public function getFlaresolverUrl()
     {
-        if (FreshRSS_Context::$system_conf->flaresolver_url !== null)
-            return FreshRSS_Context::$system_conf->flaresolver_url;
 
-        return true;
+		if (FreshRSS_Context::systemConf()->hasParam('flaresolver_url')) {
+			return FreshRSS_Context::systemConf()->flaresolver_url;
+		}
+        return "";
     }
 
-    public function getMaxTimeout(){
-        if (FreshRSS_Context::$system_conf->flaresolver_maxTimeout !== null)
-            return intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout);
 
-        return 60000;
+
+    public function getMaxTimeout() {
+
+		if ( FreshRSS_Context::systemConf()->hasParam('flaresolver_maxTimeout') ){
+			return intval(FreshRSS_Context::systemConf()->flaresolver_maxTimeout);
+		}
+		return 60000;
     }
 }
