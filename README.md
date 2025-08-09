@@ -101,11 +101,11 @@ If the text/translations are not showing up in the plugin settings screen you mi
 
 ### Can't enable the plugin
 
-If turning on the plugin gives an and you are using FreshRSS V1.20.3 or older, you might be experiencing a permissions error. Check the system logs to confirm. Try running `docker-compose exec -u root freshrss chmod 777 /var/www/FreshRSS/p/api` and re-enabling the plugin.
+If turning on the plugin gives an and you are using FreshRSS V1.26.3 or older, you might be experiencing a permissions error. Check the system logs to confirm. Try running `docker-compose exec -u root freshrss chmod 777 /var/www/FreshRSS/p/api` and re-enabling the plugin.
 
 ### All feeds give Service Unavailable!
 
-If you're running FreshRSS V1.20.4 or later and the plugin prepend url has `/api/misc.php` in it, you might not have turned on API access. Go to via Administration -> Authentication menu and tick Allow API access.
+If you're running FreshRSS V1.26.4 or later and the plugin prepend url has `/api/misc.php` in it, you might not have turned on API access. Go to via Administration -> Authentication menu and tick Allow API access.
 
 ### Problem Rendering Feed
 
