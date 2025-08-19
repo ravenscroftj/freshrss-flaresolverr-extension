@@ -74,7 +74,7 @@ class FlareSolverrExtension extends Minz_Extension
     {
 
 		if(version_compare(FRESHRSS_VERSION, "1.26.3",">")){
-			return Minz_Url::display('/api/misc.php/'.$this->getName().'?feed=', 'html', true);
+			return Minz_Url::display('/api/misc.php/'.rawurlencode($this->getName()).'?feed=', 'html', true);
 		}else{
 			return Minz_Url::display('/api/cloudsolver.php?feed=', 'html', true);
 
