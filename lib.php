@@ -76,7 +76,7 @@ class FlaresolverrExtensionNotConfiguredException extends Exception {
 
 function fetch_feed($feed) {
 
-	if(empty(FreshRSS_Context::$system_conf->flaresolver_url)){
+	if(!FreshRSS_Context::systemConf()->hasParam('flaresolver_url')){
 		throw new FlaresolverrExtensionNotConfiguredException('FlareSolverr extension not configured. You must set your flaresolver url. See https://github.com/ravenscroftj/freshrss-flaresolverr-extension');
 	}
 
@@ -86,7 +86,7 @@ function fetch_feed($feed) {
 	];
 
 	// set global timeout based on config or default to 60 seconds
-	$globalTimeout = isset(FreshRSS_Context::$system_conf->flaresolver_maxTimeout) ? intval(FreshRSS_Context::$system_conf->flaresolver_maxTimeout) : 60000;
+	$globalTimeout = isset(FreshRSS_Context::systemConf()->flaresolver_maxTimeout) ? intval(FreshRSS_Context::systemConf()->flaresolver_maxTimeout) : 60000;
 
 	// if maxTimeout param is set then use it instead of global one as long as it is less than global one.
 	$maxTimeout = isset($_GET['maxTimeout']) ? min(array(intval($_GET['maxTimeout']), $globalTimeout)) : $globalTimeout;
@@ -97,7 +97,7 @@ function fetch_feed($feed) {
 		"maxTimeout" => $maxTimeout,
 		//'session' => $session
 	];
-	curl_setopt( $ch, CURLOPT_URL, FreshRSS_Context::$system_conf->flaresolver_url."/v1"); //This is my flaresolverr address
+	curl_setopt( $ch, CURLOPT_URL, FreshRSS_Context::systemConf()->flaresolver_url."/v1"); //This is my flaresolverr address
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -107,9 +107,14 @@ function fetch_feed($feed) {
 
 	$array = json_decode(curl_exec($ch), true);
 
-	if (json_last_error() !== JSON_ERROR_NONE || !isset($array['solution']) || !isset($array['solution']['response'])) {
 
-		throw new InvalidResponseException("Invalid JSON response from FlareSolverr for $feed");
+
+	if(curl_errno($ch)){
+		throw new InvalidResponseException("Error fetching response from FlareSolverr: ".curl_error($ch));
+	}
+
+	if (json_last_error() !== JSON_ERROR_NONE) {
+		throw new InvalidResponseException("Invalid JSON Response from FlareSolverr");
 
 	}
 
@@ -148,3 +153,4 @@ function run_flaresolverr_extension(){
 	}
 
 }
+
