@@ -1,8 +1,13 @@
 # FreshRSS Flaresolverr Extension
 
-[![Mastodon Follow](https://img.shields.io/mastodon/follow/114403382982592834?domain=social.lol&style=social)](https://social.lol/@jamesravey) ![BSD Licensed](https://img.shields.io/github/license/ravenscroftj/freshrss-flaresolverr-extension)
+[![Mastodon Follow](https://img.shields.io/mastodon/follow/114403382982592834?domain=social.lol&style=social)](https://social.lol/@jamesravey) ![BSD Licensed](https://img.shields.io/github/license/ravenscroftj/freshrss-flaresolverr-extension) 
 
 FreshRSS plugin that provides cloudflare puzzle solving via flaresolverr
+
+If you find this work useful, consider buying me a coffee!
+
+<a href='https://ko-fi.com/B0B7J7JYB' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 
 ## Why
 
