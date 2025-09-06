@@ -86,7 +86,7 @@ function fetch_feed($feed) {
 	];
 
 	// set global timeout based on config or default to 60 seconds
-	$globalTimeout = isset(FreshRSS_Context::systemConf()->flaresolver_maxTimeout) ? intval(FreshRSS_Context::systemConf()->flaresolver_maxTimeout) : 60000;
+	$globalTimeout = FreshRSS_Context::systemConf()->hasParam('flaresolver_maxTimeout') ? intval(FreshRSS_Context::systemConf()->flaresolver_maxTimeout) : 60000;
 
 	// if maxTimeout param is set then use it instead of global one as long as it is less than global one.
 	$maxTimeout = isset($_GET['maxTimeout']) ? min(array(intval($_GET['maxTimeout']), $globalTimeout)) : $globalTimeout;
