@@ -124,20 +124,34 @@ function fetch_feed($feed) {
 }
 
 function run_flaresolverr_extension(){
+	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Disposition: attachment");
+	header('X-Content-Type-Options: nosniff');
 
 	try{
 		$array = fetch_feed(urldecode($_GET['feed']));
 		$doc = parse_content($array['solution']['response']);
 
-		if(isset($_GET['debug']) && $_GET['debug'] == '1'){
-			print_r($array);
+		if(isset($_GET['raw']) && $_GET['raw'] == 1){
+			$resp = $array['solution']['response'];
+			$fInfo = finfo_open(FILEINFO_MIME_TYPE);
+			if ($fInfo === false) {
+				throw new Exception('Failed to determine mime type');
+			}
+			$mime_type = finfo_buffer($fInfo, $resp);
+			if (!in_array($mime_type, ['application/json', 'text/xml', 'text/html'])) { // Formats supported by FreshRSS
+				header('Content-Type: text/plain');
+			} else {
+				header("Content-Type: $mime_type");
+			}
+			echo $resp;
 		}else{
 			// Check for RSS element
 			$feed = $doc->getElementsByTagName('rss')->item(0);
 
 			if ($feed) {
 				// If RSS element found, output the content
-				header("Content-type: application/xml");
+				header("Content-Type: application/xml");
 				echo $doc->saveXML($feed);
 			} else {
 				// If no RSS element found, output the entire document
@@ -148,6 +162,8 @@ function run_flaresolverr_extension(){
 
 
 	} catch (Exception $e) {
+		header('Content-Disposition: inline');
+		header('Content-Type: text/plain');
 		header("HTTP/1.1 500 Internal Server Error");
 		echo "Error: " . $e->getMessage();
 	}

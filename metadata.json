@@ -2,7 +2,7 @@
 	"name": "FreshRss FlareSolverr",
 	"author": "James Ravenscroft",
 	"description": "Use a Flaresolverr instance to bypass cloudflare security checks",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"entrypoint": "FlareSolverr",
 	"type": "system"
 }
