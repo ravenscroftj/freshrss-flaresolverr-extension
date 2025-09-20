@@ -117,9 +117,9 @@ If turning on the plugin gives an and you are using FreshRSS V1.26.3 or older, y
 
 If you're running FreshRSS V1.26.4 or later and the plugin prepend url has `/api/misc.php` in it, you might not have turned on API access. Go to via Administration -> Authentication menu and tick Allow API access.
 
-### Problem Rendering Feed
+### Problem Fetching Feed
 
-If you are having trouble rendering the feed, you can append `&debug=1` to the URL to see some additional information about the Flaresolverr endpoint and exactly what is being returned by the browser. 
+If you are having trouble fetching the feed, you can append `&raw=1` to the URL to force HTML support for example when using XPath scraping.
 
 ## Contributing
 
